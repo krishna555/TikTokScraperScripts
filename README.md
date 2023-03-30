@@ -149,7 +149,7 @@ Load the directory of the chrome extension as an unpacked extension to your chro
 This is a HTTP Request Logger to log pixels sent by the chrome extension to local file system.
 The output will be stored in extracted_data directory as a data_{id}.txt file where id = 0, 1, 2, 3, etc. such that each file will be approximately 2MB in size.
 
-The implementation clears a set every 10^5 local log records, so there should be very few duplicates if any.
+The implementation clears a set every 10<sup>5</sup> local log records, so there should be very few duplicates if any.
 
 Run the logger using `node server.js`
 

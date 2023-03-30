@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "TikTok Comments Scraper",
+  "description": "Chrome Extension to extract comments on a tiktok video",
+  "version": "1.0",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [{
+    "matches": ["https://www.tiktok.com/*"],
+    "js": ["helpers.js", "content-script.js"]
+  }],
+  "permissions": [
+    "tabs",
+    "activeTab"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "hello_extensions.png"
+  }
+}
