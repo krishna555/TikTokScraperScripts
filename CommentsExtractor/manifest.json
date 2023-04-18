@@ -7,11 +7,12 @@
     "default_popup": "popup.html"
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
   "content_scripts": [{
     "matches": ["https://www.tiktok.com/*"],
-    "js": ["helpers.js", "content-script.js"]
+    "js": ["content-script.js"]
   }],
   "permissions": [
     "tabs",

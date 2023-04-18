@@ -38,6 +38,7 @@ const server = http.createServer((request, response) => {
         response.end();
     }
     if (urlSet.has(current)) {
+        response.end();
         return;
     }
 

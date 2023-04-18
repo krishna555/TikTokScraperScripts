@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "TikTok Keyword URLs Extractor",
+  "description": "Chrome Extension to extract TikTok Video Links",
+  "version": "1.0",
+  "action": {
+  	"default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [{
+  	"matches": ["https://www.tiktok.com/*"],
+  	"js": ["cs.js"]
+  }],
+  "permissions": [
+    "tabs",
+    "activeTab"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "keyword.png"
+  }
+}
