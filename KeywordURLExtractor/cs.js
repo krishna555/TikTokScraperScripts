@@ -1,6 +1,7 @@
 window.onload = function() {
 	var res = []
 	var keyword = null;
+	var URL_LIMIT = 100;
 	chrome.runtime.sendMessage('get-message', (message) => {
 		console.log("Received msg", message);
 		keyword = message.key
@@ -34,7 +35,7 @@ window.onload = function() {
 	});
 
 	function addData() {
-		if (res.length >= 100) {
+		if (res.length >= URL_LIMIT) {
 			return;
 		}
 		var elements = document.querySelectorAll("div[class*=\"StyledDivContainerV2\"] > div > div > a");

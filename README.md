@@ -154,3 +154,16 @@ The implementation clears a set every 10<sup>5</sup> local log records, so there
 Run the logger using `node server.js`
 
 The logger is now running on port 9000.
+
+# Keyword related URLs Extraction
+
+This component is a chrome extension to extract TikTok Video Links from the TikTok Tag page (Ex: https://www.tiktok.com/tag/datascience?lang=en) given a list of keywords.
+
+The chrome extension sends network requests from the page for each URL. These network requests can be logged to a local file by using the Logger Component.
+
+{"u": "<Tiktok Video URL>", "k": "<Keyword>"}
+
+
+To use the chrome extension, update `line 42` where the variable keywords is defined as `var keywords = ` with the list of keywords for which URLs are to be extracted.
+
+Currently, the chrome extension is configured to extract the top 100 recommended URLs. To modify this limit update the line `var URL_LIMIT = 100` to a threshold satisfying your requirements.
