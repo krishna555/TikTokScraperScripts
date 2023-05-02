@@ -39,41 +39,42 @@ function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-var keywords = ["ukraine", "russia", "putin", "soviet", "kremlin", "minsk", "ukrainian", "NATO", "luhansk", "donetsk", "kyiv", "kiev", "moscow", "zelensky", "fsb", "KGB", "Україна", "Киев", "ФСБ", "Россия", "КГБ", "Київ", "україни", "Росія", "кгб", "фсб", "SlavaUkraini", "ukrainian", "\U0001F1FA\U0001F1E", "Украина", "украины", "Donbas", "donbas", "Донбасс", "Донбасс", "своихнебросаем"];
-var url_format = "https://"
-var orchestrator = async function() {
-	for (var i = 0; i < keywords.length; ++i) {
-    console.log("URL Number : " +  i);
-    keyword["key"] = keywords[i];
-    var url = "https://www.tiktok.com/tag/" + keywords[i] + "?lang=en";
-    var timeLimit = 20000;
-    await fn(url);
-    if (i - 1 >= 0) {
-      await chrome.tabs.remove(tabIds[i - 1]);
-    }
-    await timeout(timeLimit);
-    
+function tagPageExample() {
+	var keywords = ["ukraine", "russia", "putin", "soviet", "kremlin", "minsk", "ukrainian", "NATO", "luhansk", "donetsk", "kyiv", "kiev", "moscow", "zelensky", "fsb", "KGB", "Україна", "Киев", "ФСБ", "Россия", "КГБ", "Київ", "україни", "Росія", "кгб", "фсб", "SlavaUkraini", "ukrainian", "\U0001F1FA\U0001F1E", "Украина", "украины", "Donbas", "donbas", "Донбасс", "Донбасс", "своихнебросаем"];
+	var url_format = "https://"
+	var orchestrator = async function() {
+		for (var i = 0; i < keywords.length; ++i) {
+	    console.log("URL Number : " +  i);
+	    keyword["key"] = keywords[i];
+	    var url = "https://www.tiktok.com/tag/" + keywords[i] + "?lang=en";
+	    var timeLimit = 20000;
+	    await fn(url);
+	    if (i - 1 >= 0) {
+	      await chrome.tabs.remove(tabIds[i - 1]);
+	    }
+	    await timeout(timeLimit);
+		}
 	}
+	orchestrator();
 }
-orchestrator();
 
-// Search Page Example:
-/*
-var keywords = ["datascience"]
-var url_format = "https://"
-var searchOrchestrator = async function() {
-	for (var i = 0; i < keywords.length; ++i) {
-    console.log("URL Number : " +  i);
-    keyword["key"] = keywords[i];
-    var url = "https://www.tiktok.com/search?q=" + keywords[i];
-    var timeLimit = 20000;
-    await fn(url);
-    if (i - 1 >= 0) {
-      await chrome.tabs.remove(tabIds[i - 1]);
-    }
-    await timeout(timeLimit);
-    
+function searchPageExample() {
+	var keywords = ["datascience"]
+	var url_format = "https://"
+	var searchOrchestrator = async function() {
+		for (var i = 0; i < keywords.length; ++i) {
+	    console.log("URL Number : " +  i);
+	    keyword["key"] = keywords[i];
+	    var url = "https://www.tiktok.com/search?q=" + keywords[i];
+	    var timeLimit = 20000;
+	    await fn(url);
+	    if (i - 1 >= 0) {
+	      await chrome.tabs.remove(tabIds[i - 1]);
+	    }
+	    await timeout(timeLimit);
+		}
 	}
+	searchOrchestrator();
 }
-searchOrchestrator();
-*/
+
+tagPageExample();
