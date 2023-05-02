@@ -1,4 +1,4 @@
-var keyword = {key: "ukraine"};
+var keyword = {key: "thinspo"};
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	if (message === "get-message") {
 		console.log("Sent Message", keyword);
@@ -56,3 +56,24 @@ var orchestrator = async function() {
 	}
 }
 orchestrator();
+
+// Search Page Example:
+/*
+var keywords = ["datascience"]
+var url_format = "https://"
+var searchOrchestrator = async function() {
+	for (var i = 0; i < keywords.length; ++i) {
+    console.log("URL Number : " +  i);
+    keyword["key"] = keywords[i];
+    var url = "https://www.tiktok.com/search?q=" + keywords[i];
+    var timeLimit = 20000;
+    await fn(url);
+    if (i - 1 >= 0) {
+      await chrome.tabs.remove(tabIds[i - 1]);
+    }
+    await timeout(timeLimit);
+    
+	}
+}
+searchOrchestrator();
+*/

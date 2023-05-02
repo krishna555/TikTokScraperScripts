@@ -10,8 +10,11 @@
     "service_worker": "background.js"
   },
   "content_scripts": [{
-  	"matches": ["https://www.tiktok.com/*"],
+  	"matches": ["https://www.tiktok.com/tag/*"],
   	"js": ["cs.js"]
+  }, {
+    "matches": ["https://www.tiktok.com/search?q=*"],
+    "js": ["searchContentScript.js"]
   }],
   "permissions": [
     "tabs",

@@ -1,7 +1,8 @@
 window.onload = function() {
+	console.log("Running Tag Content Script");
 	var res = []
 	var keyword = null;
-	var URL_LIMIT = 100;
+	// var URL_LIMIT = 100;
 	chrome.runtime.sendMessage('get-message', (message) => {
 		console.log("Received msg", message);
 		keyword = message.key
@@ -35,21 +36,22 @@ window.onload = function() {
 	});
 
 	function addData() {
-		if (res.length >= URL_LIMIT) {
-			return;
-		}
+		// if (res.length >= URL_LIMIT) {
+		// 	return;
+		// }
 		var elements = document.querySelectorAll("div[class*=\"StyledDivContainerV2\"] > div > div > a");
 
 		for (var i = 0; i < elements.length; ++i) {
-			if (i > 99) {
-				break;
-			}
+			// if (i > 99) {
+			// 	break;
+			// }
 			var url = elements[i].href;
 			if (!res.includes(url)) {
 				res.push(url);
 				var obj = {
 					u: url,
-					k: keyword
+					k: keyword,
+					t: "tag"
 				};
 				console.log("Sent network request");
 				(new Image()).src = 'http://localhost:9000/' + JSON.stringify(obj);
