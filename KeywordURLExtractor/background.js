@@ -78,3 +78,4 @@ function searchPageExample() {
 }
 
 tagPageExample();
+// searchPageExample();
