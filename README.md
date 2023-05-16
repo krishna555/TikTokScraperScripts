@@ -173,9 +173,9 @@ Currently, the chrome extension is configured to extract the top 100 recommended
 
 ## How to toggle between Search page and Tag Page for URL extraction?
 1. In the KeywordURLExtractor chrome extension, in background.js navigate to the bottom of the script
-2. Enabling Search Page: Invoke call to `searchPageExample()` function. If you do not want to scrape tag pages comment the line `tagPageExample();`
+2. **Enabling Search Page:** Invoke call to `searchPageExample()` function. If you do not want to scrape tag pages comment the line `tagPageExample();`
    - Add keywords to the list marked by `var keywords = ` in `searchPageExample` function to scrape the search pages related to these keywords.
-3. Enabling Tag Page: Code to enable tag page is active by default.
+3. **Enabling Tag Page:** Code to enable tag page is active by default.
    - Add keywords to the list marked by `var keywords = ` in `tagPageExample` function to scrape the tag pages related to these keywords.
 </details>
 
