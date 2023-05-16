@@ -1,12 +1,40 @@
-# Overview
-TikTok Scraper Scripts encapsulates scripts to crawl TikTok Video Metadata and Comments.
+
+
+## Components:
+
+
+<details>
+<summary> Video Metadata Extractor </summary>
+
 1. VideoMetadataExtractor leverages PykTok library to extract TikTok Video metadata.
-2. CommentsExtractor is a chrome extension to extract comments from a TikTok Video.
-3. Logger - HTTP Request Logger to log pixels from chrome extension.
 
-# VideoMetadataExtractor
+</details>
 
-Please find schemas in [schema](readme_extra/schema).
+<details>
+<summary> Comments Extractor </summary>
+
+1. A chrome extension to extract comments from a TikTok Video.
+2. The chrome extension will send network requests to log the comments to a HTTP Request Logger running locally.
+3. Make sure to run the logger running locally prior to activating the extension.
+4. Load the directory of the chrome extension as an unpacked extension to your chrome to try out the extension. **Do not** publish it to marketplace.
+
+</details>
+
+<details>
+<summary>Logger</summary>
+
+1. This is a HTTP Request Logger to log pixels sent by the chrome extension to local file system.
+2. The output will be stored in extracted_data directory as a data_{id}.txt file where id = 0, 1, 2, 3, etc. such that each file will be approximately 2MB in size.
+3. The implementation clears a set every 10<sup>5</sup> local log records, so there should be very few duplicates if any.
+4. Run the logger using `node server.js`
+5. The logger is now running on port 9000.
+</details>
+
+
+## Schemas:
+
+<details>
+<summary> Video Metadata Extractor </summary>
 
 The VideoMetadataExtractor extracts video metadata from TikTok Video URLs in the following format:
 
@@ -107,19 +135,15 @@ Here is a sample JSON:
   }
 }
 ```
-
-To Run The VideoMetadataExtractor, run the following command on the terminal
-```python3 TikTokScraper /path/to/input_file /path/to/output_file```
+</details>
 
 
-# CommentsExtractor
-
-A chrome extension to extract comments from a TikTok Video.
-The chrome extension will send network requests to log the comments to a HTTP Request Logger running locally.
+<details>
+<summary> Comments Extractor </summary>
 
 The locally logged comments will have the following syntax:
 
-```
+```json
 {
 	"id": "TikTok User Id",
 	"n": "TikTok User Display Name",
@@ -127,37 +151,13 @@ The locally logged comments will have the following syntax:
 	"uid": "URL ID"
 }
 ```
+</details>
 
-1. Replace raw_data with the JSON object of URLs that you would like to scrape. The JSON Object is a list of objects for each URL you would like to scrape.
-```json
-[{
-	"URL": {
-		"url_id": "Random id",
-		"count": "Count of number of comments"
-	}
-}]
-```
-url_id can be any string to uniquely identify the URL - This will be used to report the URL associated with the comment. We may then use a post-analysis script to group together comments belonging to the same URL_ID. You may also build a mapping from URL to URL_ID.
-You may use the VideoMetadataExtractor to retrieve number of comments per URL and then use that output to create the above input object.
 
-Furthermore, `getTimeForURL` function in background.js provides a time allocation strategy i.e.., number of seconds per URL for which it is scraped. You may choose to change this function implementation to your convenience.
+## Usecases and Commands
 
-Make sure to run the logger running locally prior to activating the extension.
-
-Load the directory of the chrome extension as an unpacked extension to your chrome to try out the extension. **Do not** publish it to marketplace.
-
-# Logger
-
-This is a HTTP Request Logger to log pixels sent by the chrome extension to local file system.
-The output will be stored in extracted_data directory as a data_{id}.txt file where id = 0, 1, 2, 3, etc. such that each file will be approximately 2MB in size.
-
-The implementation clears a set every 10<sup>5</sup> local log records, so there should be very few duplicates if any.
-
-Run the logger using `node server.js`
-
-The logger is now running on port 9000.
-
-# Keyword related URLs Extraction
+<details>
+<summary> Fetch all URLs associated with a keyword in Search/Tag Pages of TikTok. </summary>
 
 This component is a chrome extension to extract TikTok Video Links from the TikTok Tag page (Ex: https://www.tiktok.com/tag/datascience?lang=en) given a list of keywords.
 
@@ -176,11 +176,14 @@ Currently, the chrome extension is configured to extract the top 100 recommended
    - Add keywords to the list marked by `var keywords = ` in `searchPageExample` function to scrape the search pages related to these keywords.
 3. Enabling Tag Page: Code to enable tag page is active by default.
    - Add keywords to the list marked by `var keywords = ` in `tagPageExample` function to scrape the tag pages related to these keywords.
+</details>
 
 
-## How to Run Keyword-related URLs Extension and then fetch comments?
+<details>
+<summary> Video Metadata Extraction.</summary>
 
-
+### Generate Unique List of URLs to crawl.
+**Steps:**
 1. Chrome Extension generates a log file where every line is a JSON of the form:
 `{"u": "<TikTok Video URL>", "k": "<Keyword>", "t": "Search"}`
 2. Run `python3 UniqueURLExtractor.py <CHROME_EXTENSION_OUTPUT_PATH> <OUTPUT_PATH>` 
@@ -189,11 +192,24 @@ Currently, the chrome extension is configured to extract the top 100 recommended
 3. Run `python3 GenerateUrlKeywordsMap.py <CHROME_EXTENSION_OUTPUT_PATH> <OUTPUT_PATH>`
    1. `<CHROME_EXTENSION_OUTPUT_PATH>` is the path to the output file generated by the locally running NodeJS Logger. (Note: If the Logger generated multiple "data_" files, make sure to concatenate them to a single file by command `cat data_*.txt > urls.txt`).
    2. `<OUTPUT_PATH>` is the path to the output file generated by UniqueURLExtractor python script.
+
+### Video Metadata Extraction.
+**Steps:**
 4. Run the VideoMetadataExtractor component with command `python3 TikTokScraper.py <STEP2_RESULT> <OUTPUT_PATH>` where,
 	1. `<STEP2_RESULT>` is the output file generated by step 2
 	2. `<OUTPUT_PATH>` is the output file where the extracted video metadata will be stored. (We are extracting the video metadata to get an idea of how many comments are present for each URL, this will help us in allocating the right amount of time for scraping of each URL. For example, a video URL with only 10 comments will need far lesser time than a video URL with 1000 comments.)
+
+</details>
+
+
+<details>
+<summary>Comments Extraction.</summary>
+
+**Pre-requisite**: Run **Video Metadata Extraction** section above. This will help in estimating the amount of time to be allocated for crawling each URL while extracting comments.
+
+**Steps:**
 5. Run `python3 CommentCountPerURLExtractor.py <STEP_4_RESULT> <CSV_OUTPUT_PATH> <JSON_OUTPUT_PATH>`
-	1. `<STEP_4_RESULT>` is the output generated by Step 4
+	1. `<STEP_4_RESULT>` is the output generated by Step 4 in **Video Metadata Extraction** section above.
 	2. `<CSV_OUTPUT_PATH>` is the output generated by CommentCountPerURLExtractor in CSV Format. Can be used in Excel to build pivot tables to visualize comment count distributions.
 	3. `<JSON_OUTPUT_PATH>` is the output generated by CommentCountPerURLExtractor in JSON Format.
 6. Run `python3 GenerateIdForUrls.py <STEP_5_JSON_RESULT> <OUTPUT_PATH>`
@@ -212,4 +228,9 @@ Currently, the chrome extension is configured to extract the top 100 recommended
 	2. `<COMMENTS_JSON_RESULT>` is the JSON containing the extracted comments from step 10
 	3. `<PATH_TO_OUTPUT>` is the output generated by this program which will remove the missing URLs from the comments data in `<COMMENTS_JSON_RESULT>`.
 
+**Side-Note:** Before step-8, if you wish to change the time-allocation strategy before initiating crawl - `getTimeForURL` function in background.js provides a time allocation strategy i.e.., number of seconds per URL for which it is scraped. You may choose to change this function implementation to your convenience.
+
 The output from step 11 will contain the extracted comments in JSON format where key is the URL and value is the list of comments scraped for that URL by the chrome extension.
+
+</details>
+
