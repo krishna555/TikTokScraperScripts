@@ -6,6 +6,8 @@ TikTok Scraper Scripts encapsulates scripts to crawl TikTok Video Metadata and C
 
 # VideoMetadataExtractor
 
+Please find schemas in [schema](readme_extra/schema).
+
 The VideoMetadataExtractor extracts video metadata from TikTok Video URLs in the following format:
 
 ```json
