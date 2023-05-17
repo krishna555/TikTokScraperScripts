@@ -192,6 +192,7 @@ The metadata for TikTok User profile links of the form `https://www.tiktok.com/@
   }
 }
 ```
+</details>
 
 ## Usecases and Commands
 
