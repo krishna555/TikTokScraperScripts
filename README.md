@@ -257,7 +257,6 @@ The **KeywordURLExtractor chrome extension**  sends network requests from the pa
 
 To use the chrome extension, update `line 42` where the variable keywords is defined as `var keywords = ` with the list of keywords for which URLs are to be extracted.
 
-Currently, the chrome extension is configured to extract the top 100 recommended URLs. To modify this limit update the line `var URL_LIMIT = 100` to a threshold satisfying your requirements.
 
 ## How to toggle between Search page and Tag Page for URL extraction?
 1. In the KeywordURLExtractor chrome extension, in background.js navigate to the bottom of the script
@@ -265,6 +264,12 @@ Currently, the chrome extension is configured to extract the top 100 recommended
    - Add keywords to the list marked by `var keywords = ` in `searchPageExample` function to scrape the search pages related to these keywords.
 3. **Enabling Tag Page:** Code to enable tag page is active by default.
    - Add keywords to the list marked by `var keywords = ` in `tagPageExample` function to scrape the tag pages related to these keywords.
+
+
+Clear the `extracted_data` directory to prevent outputs from being appended to existing `data_*` files.
+Run `node server.js` before activating the extension. 
+Now activate the extension to get all the URLs once the server is running locally.
+
 </details>
 
 
