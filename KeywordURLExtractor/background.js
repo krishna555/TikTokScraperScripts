@@ -39,7 +39,7 @@ function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function tagPageExample() {
+function tagPageRunner() {
 	var keywords = ["ukraine", "russia", "putin", "soviet", "kremlin", "minsk", "ukrainian", "NATO", "luhansk", "donetsk", "kyiv", "kiev", "moscow", "zelensky", "fsb", "KGB", "Україна", "Киев", "ФСБ", "Россия", "КГБ", "Київ", "україни", "Росія", "кгб", "фсб", "SlavaUkraini", "ukrainian", "\U0001F1FA\U0001F1E", "Украина", "украины", "Donbas", "donbas", "Донбасс", "Донбасс", "своихнебросаем"];
 	var url_format = "https://"
 	var orchestrator = async function() {
@@ -58,7 +58,7 @@ function tagPageExample() {
 	orchestrator();
 }
 
-function searchPageExample() {
+function searchPageRunner() {
 	var keywords = ["datascience"]
 	var url_format = "https://"
 	var searchOrchestrator = async function() {
@@ -77,5 +77,5 @@ function searchPageExample() {
 	searchOrchestrator();
 }
 
-tagPageExample();
-// searchPageExample();
+// tagPageRunner();
+searchPageRunner();

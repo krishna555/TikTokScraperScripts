@@ -250,7 +250,7 @@ Here's a sample JSON below:
 
 This component is a chrome extension to extract TikTok Video Links from the TikTok Tag page (Ex: https://www.tiktok.com/tag/datascience?lang=en) given a list of keywords.
 
-The chrome extension sends network requests from the page for each URL. These network requests can be logged to a local file by using the Logger Component.
+The **KeywordURLExtractor chrome extension**  sends network requests from the page for each URL. These network requests can be logged to a local file by using the Logger Component.
 
 `{"u": "<Tiktok Video URL>", "k": "<Keyword>", "t": "Search"}` for a search page and `{"u": "<Tiktok Video URL>", "k": "<Keyword>", "t": "Tag"}` for a tag page.
 
