@@ -266,9 +266,10 @@ To use the chrome extension, update `line 42` where the variable keywords is def
    - Add keywords to the list marked by `var keywords = ` in `tagPageExample` function to scrape the tag pages related to these keywords.
 
 
-Clear the `extracted_data` directory to prevent outputs from being appended to existing `data_*` files.
-Run `node server.js` before activating the extension. 
-Now activate the extension to get all the URLs once the server is running locally.
+### Activate Chrome Extension.
+1. Clear the `extracted_data` directory to prevent outputs from being appended to existing `data_*` files.
+2. Run `node server.js` before activating the extension. 
+3. Now activate the extension to get all the URLs once the server is running locally.
 
 </details>
 
