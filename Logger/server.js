@@ -1,7 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require('path');
-const urlSet = Set();
+const urlSet = new Set();
 
 function getFilesizeInBytes(filename) {
     var stats = fs.statSync(filename);
